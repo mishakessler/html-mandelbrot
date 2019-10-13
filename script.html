@@ -4,13 +4,12 @@
 <body>
   <script>
     (() => {
-
       const myCanvas = document.createElement('canvas');
       myCanvas.width = 1920;
       myCanvas.height = 1080;
       document.body.appendChild(myCanvas);
-      const ctx = myCanvas.getContext('2d');
 
+      const ctx = myCanvas.getContext('2d');
 
       function checkIfBelongsToMandelbrotSet(x, y) {
         let realComponentOfResult = x;
@@ -19,8 +18,13 @@
         const maxIterations = 350;
 
         for (let i = 0; i < maxIterations; i++) {
-          const tempRealComponent = realComponentOfResult * realComponentOfResult - imaginaryComponentOfResult * imaginaryComponentOfResult + x;
-          const tempImaginaryComponent = 2.0 * realComponentOfResult * imaginaryComponentOfResult + y;
+          const tempRealComponent =
+            realComponentOfResult * realComponentOfResult -
+            imaginaryComponentOfResult * imaginaryComponentOfResult
+            + x;
+          const tempImaginaryComponent =
+            2.0 * realComponentOfResult * imaginaryComponentOfResult
+            + y;
           realComponentOfResult = tempRealComponent;
           imaginaryComponentOfResult = tempImaginaryComponent;
 
