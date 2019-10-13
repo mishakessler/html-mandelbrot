@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+  <script>
+    (() => {
+
+      const myCanvas = document.createElement('canvas');
+      myCanvas.width = 1920;
+      myCanvas.height = 1080;
+      document.body.appendChild(myCanvas);
+      const ctx = myCanvas.getContext('2d');
+
+
+      function checkIfBelongsToMandelbrotSet(x, y) {
+        let realComponentOfResult = x;
+        let imaginaryComponentOfResult = y;
+
+        const maxIterations = 350;
+
+        for (let i = 0; i < maxIterations; i++) {
+          const tempRealComponent = realComponentOfResult * realComponentOfResult - imaginaryComponentOfResult * imaginaryComponentOfResult + x;
+          const tempImaginaryComponent = 2.0 * realComponentOfResult * imaginaryComponentOfResult + y;
+          realComponentOfResult = tempRealComponent;
+          imaginaryComponentOfResult = tempImaginaryComponent;
+
+          if (realComponentOfResult * imaginaryComponentOfResult > 5) {
+            return (i / maxIterations * 100);
+          }
+        }
+        return 0;
+      }
+
+      const magnificationFactor = 900;
+      const panX = 2.1;
+      const panY = 0.6;
+
+      for (let x = 0; x < myCanvas.width; x++) {
+        for (let y = 0; y < myCanvas.height; y++) {
+          const belongsToSet = checkIfBelongsToMandelbrotSet(
+            x / magnificationFactor - panX,
+            y / magnificationFactor - panY);
+
+          if (belongsToSet === 0) {
+            ctx.fillStyle = '#000';
+            ctx.fillRect(x, y, 1, 1);
+          } else {
+            ctx.fillStyle = `hsl(185, 100%, ${belongsToSet}%)`;
+            ctx.fillRect(x, y, 1, 1);
+          }
+        }
+      }
+    })();
+  </script>
+</body>
+
+</html>
